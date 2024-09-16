@@ -1,5 +1,6 @@
 package com.scv.model.entity;
 
+import com.scv.model.enums.Roles;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -30,4 +31,21 @@ public class Usuario {
     private LocalDateTime createdAt;
     @Column(name = "created_at")
     private LocalDateTime updatedAt;
+    @Column(name = "estudiante_id", nullable = false)
+    private int estudianteId;
+    @Column(name = "experto_id", nullable = false)
+    private int expertoId;
+
+    @OneToOne
+    @JoinColumn(name = "estudiante", referencedColumnName = "id"
+            ,foreignKey = @ForeignKey(name = "FK_usuario_usuario"))
+    private Estudiante estudiante;
+
+    @OneToOne
+    @JoinColumn(name = "experto", referencedColumnName = "id"
+            ,foreignKey = @ForeignKey(name = "FK_usuario_experto"))
+    private Experto experto;
+
+    @Enumerated(EnumType.STRING)
+    private Roles roles;
 }

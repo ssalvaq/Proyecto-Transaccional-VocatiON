@@ -13,7 +13,7 @@ public class Estudiante {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name = "nivelAcademico", nullable = false, length = 50)
+    @Column(name = "nivel_academico", nullable = false, length = 50)
     private String nivelAcademico;
     @Column(name = "intereses", columnDefinition = "TEXT")
     private String intereses;

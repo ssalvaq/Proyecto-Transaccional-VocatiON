@@ -21,4 +21,11 @@ public class TestVocacional {
     private LocalDateTime createdAt;
     @Column(name = "created_at")
     private LocalDateTime updatedAt;
+    @Column(name = "estudiante_id", nullable = false)
+    private int estudianteId;
+
+    @ManyToOne
+    @JoinColumn(name = "estudiante", referencedColumnName = "id"
+            ,foreignKey = @ForeignKey(name = "FK_testVocacional_estudiante"))
+    private Estudiante estudiante;
 }

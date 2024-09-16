@@ -13,12 +13,15 @@ public class ResultadoTest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name = "testId", nullable = false)
+    @Column(name = "test_id", nullable = false)
     private int testId;
-    @Column(name = "estudianteId", nullable = false)
-    private int estudianteId;
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
     @Column(name = "created_at")
     private LocalDateTime updatedAt;
+
+    @OneToOne
+    @JoinColumn(name = "test_id", referencedColumnName = "id"
+            ,foreignKey = @ForeignKey(name = "FK_resultadoTest_testVocacional"))
+    private TestVocacional testVocacional;
 }

@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
-@Table(name = "planes")
+@Table(name = "planesPremium")
 public class PlanPremium {
 
     @Id
@@ -18,11 +18,18 @@ public class PlanPremium {
     @Column(name = "descripcion", columnDefinition = "TEXT")
     private String descripcion;
     @Column(name = "precio", nullable = false)
-    private Double precio;
+    private float precio;
     @Column(name = "duracion", nullable = false)
     private int duracion;
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
     @Column(name = "created_at")
     private LocalDateTime updatedAt;
+    @Column(name = "usuario_id", nullable = false)
+    private int usuarioId;
+
+    @OneToOne
+    @JoinColumn(name = "usuario", referencedColumnName = "id"
+            ,foreignKey = @ForeignKey(name = "FK_planPremium_usuario"))
+    private Usuario usuario;
 }

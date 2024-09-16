@@ -23,4 +23,11 @@ public class RecursoEducativo {
     private LocalDateTime createdAt;
     @Column(name = "created_at")
     private LocalDateTime updatedAt;
+    @Column(name = "usuario_id", nullable = false)
+    private int usuarioId;
+
+    @ManyToOne
+    @JoinColumn(name = "usuario", referencedColumnName = "id"
+            ,foreignKey = @ForeignKey(name = "FK_recursoEducativo_usuario"))
+    private Usuario usuario;
 }
