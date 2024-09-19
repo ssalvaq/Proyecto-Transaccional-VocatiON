@@ -1,5 +1,5 @@
 package com.scv.dto;
 
-public class CategoryDTO {
+public class UsuarioDTO {
     private Integer id;
 }
