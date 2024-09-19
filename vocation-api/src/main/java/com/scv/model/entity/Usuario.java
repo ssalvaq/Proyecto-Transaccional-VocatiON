@@ -6,6 +6,7 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Entity
@@ -29,23 +30,23 @@ public class Usuario {
     private String tipo;
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
-    @Column(name = "created_at")
+    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
-    @Column(name = "estudiante_id", nullable = false)
-    private int estudianteId;
-    @Column(name = "experto_id", nullable = false)
-    private int expertoId;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "roles")
+    private Roles roles;
 
     @OneToOne
-    @JoinColumn(name = "estudiante", referencedColumnName = "id"
+    @JoinColumn(name = "estudiante_id", referencedColumnName = "id"
             ,foreignKey = @ForeignKey(name = "FK_usuario_usuario"))
     private Estudiante estudiante;
 
     @OneToOne
-    @JoinColumn(name = "experto", referencedColumnName = "id"
+    @JoinColumn(name = "experto_id", referencedColumnName = "id"
             ,foreignKey = @ForeignKey(name = "FK_usuario_experto"))
     private Experto experto;
 
-    @Enumerated(EnumType.STRING)
-    private Roles roles;
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+    private List<Asesoria> asesorias;
 }

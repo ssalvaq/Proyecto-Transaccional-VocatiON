@@ -4,10 +4,11 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Entity
-@Table(name = "planesPremium")
+@Table(name = "planes_Premium")
 public class PlanPremium {
 
     @Id
@@ -23,13 +24,19 @@ public class PlanPremium {
     private int duracion;
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
-    @Column(name = "created_at")
+    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
-    @Column(name = "usuario_id", nullable = false)
-    private int usuarioId;
 
     @OneToOne
-    @JoinColumn(name = "usuario", referencedColumnName = "id"
+    @JoinColumn(name = "usuario_id", referencedColumnName = "id"
             ,foreignKey = @ForeignKey(name = "FK_planPremium_usuario"))
     private Usuario usuario;
+
+    @OneToOne
+    @JoinColumn(name = "compra_id", referencedColumnName = "id"
+            ,foreignKey = @ForeignKey(name = "FK_planPremium_compra"))
+    public Compra compra;
+
+    @OneToMany(mappedBy = "planPremium", cascade = CascadeType.ALL)
+    private List<RecursoPremium> recursoPremium;
 }

@@ -17,13 +17,14 @@ public class Carrera {
     private String nombre;
     @Column(name = "descripcion", columnDefinition = "TEXT")
     private String descripcion;
-    @Column(name = "campoEstudio", nullable = false, length = 50)
+    @Column(name = "campo_estudio", nullable = false, length = 50)
     private String campoEstudio;
     @Column(name = "duracion", nullable = false)
     private int duracion;
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
-    @Column(name = "created_at")
+    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
 
 }

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Entity
@@ -21,13 +22,11 @@ public class RecursoEducativo {
     private String tipo;
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
-    @Column(name = "created_at")
+    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
-    @Column(name = "usuario_id", nullable = false)
-    private int usuarioId;
 
     @ManyToOne
-    @JoinColumn(name = "usuario", referencedColumnName = "id"
+    @JoinColumn(name = "usuario_id", referencedColumnName = "id"
             ,foreignKey = @ForeignKey(name = "FK_recursoEducativo_usuario"))
     private Usuario usuario;
 }
