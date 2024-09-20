@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
-
 @RequiredArgsConstructor
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
@@ -19,10 +18,10 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Transactional
     public Usuario registerUsuario(Usuario usuario) {
         if (usuarioRepository.existsByEmail(usuario.getEmail())) {
-            throw new RuntimeException("El correo ya esta registrado");
+            throw new RuntimeException("El correo ya está registrado");
         }
 
-        //Establecer fechas de creacion
+        // Establecer fechas de creación
         usuario.setCreatedAt(LocalDateTime.now());
         return usuarioRepository.save(usuario);
     }
@@ -34,6 +33,32 @@ public class UsuarioServiceImpl implements UsuarioService {
             throw new RuntimeException("Credenciales inválidas");
         }
         return usuarioOpt.get();
+    }
+
+    @Transactional
+    public void deleteUsuario(Integer id) {
+        Optional<Usuario> usuarioOpt = usuarioRepository.findById(id);
+        if (usuarioOpt.isEmpty()) {
+            throw new RuntimeException("El usuario no se ha encontrado");
+        }
+        if (!usuarioOpt.get().getAsesorias().isEmpty()) {
+            usuarioOpt.get().getAsesorias().forEach(asesoria -> {
+                asesoria.setUsuario(null);
+            });
+        }
+
+        usuarioRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void resetPassword(Integer id, String newPassword) {
+        Optional<Usuario> usuarioOpt = usuarioRepository.findById(id);
+        if (usuarioOpt.isEmpty()) {
+            throw new RuntimeException("El usuario no se ha encontrado");
+        }
+        Usuario usuario = usuarioOpt.get();
+        usuario.setContraseña(newPassword); // Cambia la contraseña
+        usuarioRepository.save(usuario); // Guarda los cambios
     }
 
 
